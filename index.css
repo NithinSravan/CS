@@ -1,0 +1,99 @@
+body, html {
+  height: 100%;
+}
+*{
+  box-sizing:border-box;
+}
+html{
+  background-image: url("camera.jpg");
+  background-size: cover;
+}
+.container{
+  max-width:800px;
+  margin:auto;
+  position: relative;
+}
+#open{
+  border: 40px solid black;
+  border-style: s;
+}
+
+.slides{
+  display:none;
+}
+.dot{
+  display:inline-block;
+  position: relative;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background-color: white;
+  margin:0 10px;
+  transition: background-color 0.6s ease;
+}
+.next, .prev{
+  position: absolute;
+  color:white;
+  cursor: pointer;
+  transition: 0.6s ease;
+  padding:16px;
+  top:50%;
+  width:auto;
+  margin-top:-22px;
+  border-radius:0 3px 3px 0;
+  font-size:18px;
+  font-weight: bold;
+  user-select:none;
+}
+.text {
+  color: black;
+  font-size: 15px;
+  font-family: "Century Gothic";
+  padding:12px;
+  background-color:white;
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  text-align: center;
+}
+img{
+  border:10px solid white;
+}
+.next{
+  right:0;
+  border-radius:3px 0 0 3px;
+}
+.next:hover, .prev:hover{
+  background-color: rgba(0,0,0,0.8);
+}
+.active, .dot:hover{
+  background-color: #717171;
+}
+.welcome{
+  font-family: "Century Gothic";
+  font-size: 35px;
+  padding: 8px 12px;
+  position: absolute;
+  width: 100%;
+  color: aliceblue;
+  margin-top:-250px;
+  text-align: center;
+
+}
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
