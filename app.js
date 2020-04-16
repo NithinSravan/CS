@@ -8,7 +8,7 @@ var diff;
 var  s=0;
 var ms=0;
 var t=0;
-var best=new Array(5);
+var best=new Array(3);
 var bs=0;
 var bms=0;
 var randomnos=[];
@@ -37,6 +37,26 @@ var setup=function(){
     start.innerHTML="Click To Start";
     box.addEventListener('click',begin);
 };
+var display=function(k){
+    best.sort();  
+    for(let i=0;i<=k;i++)
+    {
+        bs=Math.floor(best[i]/1000);
+        bms=best[i]-(Math.floor(best[i]/1000)*1000);
+        if(Math.floor(bms/10)===0)
+        {
+            btime[i].innerHTML=bs+'.00'+bms+' s';
+        }
+        else if(Math.floor(bms/100)===0)
+        {
+            btime[i].innerHTML=bs+'.0'+bms+' s';
+        }
+       else
+            btime[i].innerHTML=bs+'.'+bms+' s'; 
+    }
+ 
+
+};
 //adds best scores to the array in local storage
 var bestScore=function(){
     let f=0;
@@ -56,31 +76,38 @@ var bestScore=function(){
         localStorage.setItem("best", JSON.stringify(best));
     }
     else{
-        for(let i=0;i<k;i++){
-         if(best[i]<diff){
-             f=1;
-         }
-        }
-        if(f===0){ 
-            bs=Math.floor(diff/1000);
-            bms=diff-(Math.floor(diff/1000)*1000);
-            best[k]=diff;
-            bestrec();
-            if(Math.floor(bms/10)===0)
-            {
-                btime[k].innerHTML=bs+'.00'+bms+' s';
+            if(best.includes(undefined)){
+                bs=Math.floor(diff/1000);
+                bms=diff-(Math.floor(diff/1000)*1000);
+                best[k]=diff;
+                bestrec(); 
+                display(k);
+                localStorage.setItem("best", JSON.stringify(best));
+                k++;
             }
-            else if(Math.floor(bms/100)===0)
-            {
-                btime[k].innerHTML=bs+'.0'+bms+' s';
-            }
-           else
-                btime[k].innerHTML=bs+'.'+bms+' s';
-            localStorage.setItem("best", JSON.stringify(best));
-            k++;
-        }
-        else{
-            f=0;
+         else{
+            best.sort();
+             for(let i=0;i<k;i++){
+                if(best[i]>diff){
+                    bs=Math.floor(diff/1000);
+                    bms=diff-(Math.floor(diff/1000)*1000);
+                    best[2]=diff;
+                    if(Math.floor(bms/10)===0)
+                    {
+                        btime[i].innerHTML=bs+'.00'+bms+' s';
+                    }
+                    else if(Math.floor(bms/100)===0)
+                    {
+                        btime[i].innerHTML=bs+'.0'+bms+' s';
+                    }
+                   else
+                        btime[i].innerHTML=bs+'.'+bms+' s';
+                    best.sort();
+                    localStorage.setItem("best", JSON.stringify(best));
+                    break;
+                
+                 }
+             }
         }
     }
 };
