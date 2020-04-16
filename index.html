@@ -1,32 +1,36 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
     <title>Document</title>
 </head>
 <body>
-  <form method="post" autocomplete="off">
-    <div class="container">
-      <div class="image">
-        <img src="DP.jpg">
-      </div>
-      <div class="txtb">
-        <input type="text" id="name" name="username" placeholder="username">
-      </div>
-
-     <div class="txtb">
-        <input type="password" id="password" name="userpassword" placeholder="password">
-     </div>
-
-       <button class="button" onclick="check(this.form)"><a href="#"></a>SIGN IN</a></button>
-       <span><a href="forgot.html">Can't find my password!</a></span>
-    </div>
-  </form>
-  <script src="login.js"></script>
+    <header>
+        <ul>
+            <li id="timer">
+                <h4>TIME</h4>
+                <h3 id="sec">0<h3><h3>.</h3><h3 id="msec">000</h3><h3> s</h3>
+            </li>
+            <li id="best">
+                <h4>BEST TIME</h4>
+                <h3 class="btime">0.000 s</h3>
+            </li>
+        </ul>
+  
+    </header>
+    <main>
+        <section>       
+            <p>Click <strong>the numbers</strong><br>as quickly as you can!</p>
+            <p id="newgame">New Game</p>
+        </section>
+        <section>
+            <div id="container">
+                
+            </div>
+        </section>
+    </main>
+    <script src="app.js"></script>
 </body>
 </html>

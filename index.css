@@ -1,99 +1,81 @@
-body, html {
-  height: 100%;
-}
+@import url('https://fonts.googleapis.com/css?family=Sen&display=swap');
 *{
-  box-sizing:border-box;
+    font-family: 'Sen';
+    margin:0;
+    box-sizing: border-box;
 }
-html{
-  background-image: url("camera.jpg");
-  background-size: cover;
+body{
+    background:rgb(52, 54, 51);
 }
-.container{
-  max-width:800px;
-  margin:auto;
-  position: relative;
+header{
+    margin: 0 auto;
+    color:#fff;
 }
-#open{
-  border: 40px solid black;
-  border-style: s;
-}
-
-.slides{
-  display:none;
-}
-.dot{
-  display:inline-block;
-  position: relative;
-  height: 15px;
-  width: 15px;
-  border-radius: 50%;
-  background-color: white;
-  margin:0 10px;
-  transition: background-color 0.6s ease;
-}
-.next, .prev{
-  position: absolute;
-  color:white;
-  cursor: pointer;
-  transition: 0.6s ease;
-  padding:16px;
-  top:50%;
-  width:auto;
-  margin-top:-22px;
-  border-radius:0 3px 3px 0;
-  font-size:18px;
-  font-weight: bold;
-  user-select:none;
-}
-.text {
-  color: black;
-  font-size: 15px;
-  font-family: sans-serif;
-  padding:12px;
-  background-color:white;
-  position: absolute;
-  bottom: 5px;
-  width: 100%;
-  text-align: center;
-}
-img{
-  border:10px solid white;
-}
-.next{
-  right:0;
-  border-radius:3px 0 0 3px;
-}
-.next:hover, .prev:hover{
-  background-color: rgba(0,0,0,0.8);
-}
-.active, .dot:hover{
-  background-color: #717171;
-}
-.welcome{
-  font-family: sans-serif;
-  font-size: 35px;
-  padding: 8px 12px;
-  position: absolute;
-  width: 100%;
-  color: aliceblue;
-  margin-top:-250px;
-  text-align: center;
+header ul{
+    display: flex;
+    justify-content: flex-end;
+    padding:0;
 
 }
-/* Fading animation */
-.fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
+header h3{
+    display: inline;
 }
-
-@-webkit-keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+header li{
+    display: block;
+    padding: 20px;
+    margin:10px 50px;
+    text-align: center;
+    list-style: none;
 }
-
-@keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+main{
+    color:green;
+}
+main p{
+    display: inline-block;
+    padding: 10px 50px;
+}
+section{
+    text-align: center;
+}
+#container{
+    position: relative;
+    margin: 0 auto;
+    border: 1px solid #fff;
+    height: 300px;
+    max-width: 400px;
+    padding: 10px;
+}
+#container h1{
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+.blocks{
+    position: relative;
+    width: 20%;
+    height: 25%;
+    float:left;
+    background: #000;
+    border-radius: 5px;
+    border: 1px solid #fff;
+}
+.numbers{
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    color: #fff;
+}
+.btime{
+    display:block;
+}
+@media screen and (max-width:420px){
+    #container{
+        width: 300px;
+        height: 225px;
+    }
+    header ul{
+        flex-flow: column;
+    }
 }
