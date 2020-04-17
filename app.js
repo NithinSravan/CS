@@ -279,7 +279,8 @@ var begin=function(){
     }
 };
 setup();
-newgame.addEventListener('click',function(){
+newgame.addEventListener('click',function(e){
+    e.stopPropagation();
     end=1;
     setup();
 });
