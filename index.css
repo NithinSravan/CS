@@ -61,10 +61,6 @@ section{
     border: 1px solid #fff;
     transition: 0.2s;
 }
-.blocks:hover{
-    transform: scale(1.2);
-    z-index: 2;
-}
 .numbers{
     position: absolute;
     top: 50%;
@@ -75,6 +71,12 @@ section{
 }
 .btime{
     display:block;
+}
+@media screen and (min-width:419px){
+    .blocks:hover{
+        transform: scale(1.2);
+        z-index: 2;
+    }
 }
 @media screen and (max-width:420px){
     #container{
