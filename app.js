@@ -8,7 +8,9 @@ var diff;
 var  s=0;
 var ms=0;
 var t=0;
-var best=new Array(3);
+var best=new Array(5);
+var sound=new Audio("Repulsor.mp3");
+var audio=new Audio("button.wav");
 var bs=0;
 var bms=0;
 var randomnos=[];
@@ -57,6 +59,23 @@ var display=function(k){
  
 
 };
+var colorPicker=function(i){
+    if(i>=0&&i<=4)
+    {
+        gridblock[i].style.backgroundImage="linear-gradient(#845ec2,#d65db1,#ff6f91)";
+    }
+    else if(i>=5&&i<=9)
+    {
+        gridblock[i].style.backgroundImage="linear-gradient(#ff6f91,#ff9671,#ffc75f)";
+    }
+    else if(i>=10&&i<=14)
+    {
+        gridblock[i].style.backgroundImage="linear-gradient(#ffc75f,#f9f871)";
+    }
+    else{
+        gridblock[i].style.backgroundImage="linear-gradient(#f9f871,#fff)";
+    }
+};
 //adds best scores to the array in local storage
 var bestScore=function(){
     let f=0;
@@ -91,7 +110,7 @@ var bestScore=function(){
                 if(best[i]>diff){
                     bs=Math.floor(diff/1000);
                     bms=diff-(Math.floor(diff/1000)*1000);
-                    best[2]=diff;
+                    best[4]=diff;
                     if(Math.floor(bms/10)===0)
                     {
                         btime[i].innerHTML=bs+'.00'+bms+' s';
@@ -189,7 +208,9 @@ var game=function(){
     gridblock[i].addEventListener('click',function(e) {
         e.stopPropagation();
         if(randomnos[i]===j&&j<=20) {
-           gridblock[i].style.backgroundColor = "#FF0000";
+           colorPicker(i);
+           audio.play();
+           number[i].style.color = "#000000";
            var changenum=20+j;
            randomnos[i]=changenum;
            number[i].innerHTML=changenum;
@@ -197,7 +218,10 @@ var game=function(){
         }
          if(randomnos[i]===j&&j>20){
             number[i].innerHTML="";
+            audio.play();
+            gridblock[i].style.backgroundImage="none";
             gridblock[i].style.backgroundColor = "#000000";
+            
             j++;
          }   
         if(j>40){
@@ -235,6 +259,7 @@ var playagain=function(){
 }
 //the actual game begins after user clicks and this function is fired
 var begin=function(){
+    sound.play();
     end=0;
     box.removeEventListener('click',begin);
     if(i===3){   
@@ -258,5 +283,3 @@ newgame.addEventListener('click',function(){
     end=1;
     setup();
 });
-
- 

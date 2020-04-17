@@ -3,6 +3,7 @@
     font-family: 'Sen';
     margin:0;
     box-sizing: border-box;
+    user-select: none;
 }
 body{
     background:rgb(52, 54, 51);
@@ -15,7 +16,6 @@ header ul{
     display: flex;
     justify-content: flex-end;
     padding:0;
-
 }
 header h3{
     display: inline;
@@ -59,11 +59,17 @@ section{
     background: #000;
     border-radius: 5px;
     border: 1px solid #fff;
+    transition: 0.2s;
+}
+.blocks:hover{
+    transform: scale(1.2);
+    z-index: 2;
 }
 .numbers{
     position: absolute;
     top: 50%;
     left:50%;
+    font-size: 20px;
     transform: translate(-50%,-50%);
     color: #fff;
 }
