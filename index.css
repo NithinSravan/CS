@@ -23,16 +23,31 @@ header h3{
 header li{
     display: block;
     padding: 20px;
-    margin:10px 50px;
+    margin:10px 80px;
     text-align: center;
     list-style: none;
 }
+#newgame{
+    border:1px solid #fff;
+    margin-bottom: 5px;
+    padding: 10px;
+}
+#newgame:hover{
+    background-color: #fff;
+    color:black;
+}
 main{
-    color:green;
+    color:#fff;
 }
 main p{
-    display: inline-block;
+    display: block;
     padding: 10px 50px;
+    text-align: center;
+}
+#newgame{
+    margin:0 auto;
+    width: 200px;
+    height: 40px;
 }
 section{
     text-align: center;
@@ -40,16 +55,34 @@ section{
 #container{
     position: relative;
     margin: 0 auto;
-    border: 1px solid #fff;
     height: 300px;
     max-width: 400px;
-    padding: 10px;
+    padding: 5px;
 }
-#container h1{
+.modetext, #container h1{
     position: absolute;
     top: 50%;
     left:50%;
     transform: translate(-50%,-50%);
+}
+#gamemodes{
+    display: flex;
+    position: absolute;
+    width: 99.99%;
+    height: 99.99%;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+.mode{
+    position: relative;
+    width: 33.33%;
+    margin: 3px;
+    height: 10%;
+    background: #fff;
+    color:#fff;
 }
 .blocks{
     position: relative;
@@ -57,9 +90,9 @@ section{
     height: 25%;
     float:left;
     background: #000;
-    border-radius: 5px;
-    border: 1px solid #fff;
-    transition: 0.2s;
+    border-radius: 6px;
+    border:3px solid #fff;
+    transform: scale(1);
 }
 .numbers{
     position: absolute;
@@ -74,16 +107,19 @@ section{
 }
 @media screen and (min-width:420px){
     .blocks:hover{
-        transform: scale(1.2);
+        transform: scale(1.08);
         z-index: 2;
     }
-}
-@media screen and (max-width:420px){
-    #container{
-        width: 300px;
-        height: 225px;
+    .blocks{
+        transition: 0.2s;
     }
-    header ul{
+}
+@media screen and (max-width:540px){
+    #container{
+        width: 90vw;
+        height: 275px;
+    }
+    header ul, #gamemodes{
         flex-flow: column;
     }
 }
