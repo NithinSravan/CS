@@ -105,6 +105,10 @@ section{
 .btime{
     display:block;
 }
+
+/*media queries*/
+
+/*hover effects added only for large screens*/
 @media screen and (min-width:420px){
     .blocks:hover{
         transform: scale(1.08);
