@@ -508,7 +508,8 @@ newgame.addEventListener('click', function ()
 		btime[i].parentNode.removeChild(btime[i]);
 	};
 	clearInterval(myVar);
-	box.removeEventListener('click', playagain);
+    box.removeEventListener('click', playagain);
+    box.removeEventListener('click', begin);
 	btime[0].innerHTML = "0.000 s";
 	body.style.backgroundColor = "rgb(52, 54, 51)";
 	box.style.backgroundColor = "transparent";
