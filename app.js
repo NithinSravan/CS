@@ -385,6 +385,9 @@ var createDiv = function ()
 				const myDiv = document.createElement('div');
 				gridRow.appendChild(myDiv);
 				myDiv.classList.add("blocks");
+				const placer = document.createElement('div');
+				myDiv.appendChild(placer);
+				placer.classList.add("pos");
 				const divNumber = document.createElement('strong');
 				divNumber.classList.add("numbers");
 				myDiv.appendChild(divNumber);
