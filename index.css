@@ -54,10 +54,10 @@ section{
 }
 #container{
     position: relative;
+    overflow: hidden;
     margin: 0 auto;
     height: 300px;
     max-width: 400px;
-    padding: 5px;
 }
 .modetext, #container h1{
     position: absolute;
@@ -84,22 +84,27 @@ section{
     background: #fff;
     color:#fff;
 }
-.blocks{
-    position: relative;
-    width: 20%;
+.row{
     height: 25%;
-    float:left;
+    width: 100%;
+    position: relative;
+}
+.blocks{
+    width: 20%;
+    height: 100%;
+    position: absolute;
     background: #000;
     border-radius: 6px;
-    border:3px solid #fff;
+    border:1px solid #fff;
     transform: scale(1);
+  
 }
 .numbers{
-    position: absolute;
-    top: 50%;
-    left:50%;
+    position: relative;
+    text-align:center;
+    top:50%;
+    transform: translateY(-50%);
     font-size: 20px;
-    transform: translate(-50%,-50%);
     color: #fff;
 }
 .btime{
@@ -108,16 +113,6 @@ section{
 
 /*media queries*/
 
-/*hover effects added only for large screens*/
-@media screen and (min-width:420px){
-    .blocks:hover{
-        transform: scale(1.08);
-        z-index: 2;
-    }
-    .blocks{
-        transition: 0.2s;
-    }
-}
 @media screen and (max-width:540px){
     #container{
         width: 90vw;
@@ -127,3 +122,4 @@ section{
         flex-flow: column;
     }
 }
+/*Keyframe Animations*/
