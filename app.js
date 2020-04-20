@@ -433,13 +433,14 @@ var game = function ()
 {
 	for (let i = 0; i < gridblock.length; i++)
 	{
-		gridblock[i].addEventListener('click', function (e)
-		{
-			e.stopPropagation();
-
-			if (parseInt(number[i].innerHTML)=== j && j <= 20 + count)
-			{   if(pos[i]>=0||pos[i]<=100)
-				{
+		
+			gridblock[i].addEventListener('click', function (e)
+			{
+				e.stopPropagation();
+	
+				if (parseInt(number[i].innerHTML)=== j && j <= 20 + count)
+				{   if(pos[i]>-10&&pos[i]<90)
+					{
 					gridblock[i].style.backgroundColor="red";
 					audio.play();
 					colorPicker(i);
@@ -447,40 +448,45 @@ var game = function ()
 					number[i].innerHTML = changenum;
 					j++;
 				}
-				
-			}
-			if (parseInt(number[i].innerHTML)=== j && j > 20 + count)
-			{
-				number[i].innerHTML = "";
-				audio.play();
-				gridblock[i].style.backgroundImage = "none";
-				gridblock[i].style.backgroundColor = "#000000";
-				j++;
-			}
-			if (j > 40 + count)
-			{
-				end = 1;
-				clearInterval(conveyor);
-				//these while loops are used to remove classes
-				while (gridblock[0])
-				{
-					gridblock[0].classList.remove('blocks');
+					
 				}
-				while (number[0])
+				if (parseInt(number[i].innerHTML)=== j && j > 20 + count)
 				{
-					number[0].classList.remove('numbers');
+					if(pos[i]>-10&&pos[i]<90)
+					{
+					number[i].innerHTML = "";
+					audio.play();
+					gridblock[i].style.backgroundImage = "none";
+					gridblock[i].style.backgroundColor = "#000000";
+					j++;
+					}
 				}
-				box.style.backgroundColor = "transparent";
-				restart = document.createElement('h1');
-				box.appendChild(restart);
-				restart.setAttribute("id", "res");
-				restart.innerHTML = 'Your time is: ' + sec.innerHTML + '.' + msec.innerHTML + 's' + '<br>' + ' Restart';
-				console.log(index);
-				bestScore(index);
-				box.addEventListener("click", playagain);
-			}
-		});
-	}
+				if (j > 40 + count)
+				{
+					end = 1;
+					clearInterval(conveyor);
+					//these while loops are used to remove classes
+					while (gridblock[0])
+					{
+						gridblock[0].classList.remove('blocks');
+					}
+					while (number[0])
+					{
+						number[0].classList.remove('numbers');
+					}
+					box.style.backgroundColor = "transparent";
+					restart = document.createElement('h1');
+					box.appendChild(restart);
+					restart.setAttribute("id", "res");
+					restart.innerHTML = 'Your time is: ' + sec.innerHTML + '.' + msec.innerHTML + 's' + '<br>' + ' Restart';
+					console.log(index);
+					bestScore(index);
+					box.addEventListener("click", playagain);
+				}
+			});
+		}
+	
+
 };
 
 var  move=function(){
