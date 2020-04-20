@@ -586,21 +586,12 @@ newgame.addEventListener('click', function ()
 	box.innerHTML = "";
 	clearInterval(conveyor);
 	if (!(btime[0].innerHTML === "0.000 s"))
-	{
-		for (let i = 0; i < 3; i++)
+	{   
+		var len=btime.length;
+		for (let j = len - 1; j > 0; j--)
 		{
-			if (localStorage.getItem(`arrbest${i}`) !== null)
-			{
-				best[i] = JSON.parse(localStorage.getItem(`arrbest${i}`));
-
-				for (let j = best[i].length - 1; j > 0; j--)
-				{
-					btime[j].parentNode.removeChild(btime[j]);
-				};
-
-
-			}
-		}
+		   btime[j].parentNode.removeChild(btime[j]);
+		};
 	}
 	clearInterval(myVar);
 	box.removeEventListener('click', playagain);
