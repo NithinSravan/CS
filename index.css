@@ -115,7 +115,24 @@ section{
 .btime{
     display:block;
 }
-
+footer{
+    margin-top: 10px;
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+footer p{
+    position: absolute;
+    margin-top: 10px;
+    color:#fff;
+    top: 50%;
+    left:50%;
+    transform: translateX(-50%);
+  text-align: center;
+}
+#heart{
+    color:red;
+}
 /*media queries*/
 
 @media screen and (max-width:540px){
@@ -126,5 +143,6 @@ section{
     header ul, #gamemodes{
         flex-flow: column;
     }
+ 
 }
-/*Keyframe Animations*/
+

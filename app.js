@@ -2,9 +2,6 @@ var start;
 var restart;
 var i;
 var j;
-var k = [0, 0, 0];
-var kArr;
-var k1;
 var index;
 var count;
 var pos = [];
@@ -23,7 +20,6 @@ for (let i = 0; i < 3; i++)
 {
 	best[i] = new Array();
 }
-var bestArr;
 var sound = new Audio("Repulsor.mp3");
 var audio = new Audio("button.wav");
 var bs = 0;
@@ -65,7 +61,7 @@ var setup = function ()
 var display = function (index)
 {
 
-	best = JSON.parse(localStorage.getItem("arrbest"));
+	best[index] = JSON.parse(localStorage.getItem(`arrbest${index}`));
 	best[index].sort();
 	size = best[index].length;
 	for (let i = 0; i < size; i++)
@@ -87,7 +83,7 @@ var display = function (index)
 //separate display function to display scores of a particular mode when in that mode.
 var disp = function (index)
 {
-	best = JSON.parse(localStorage.getItem("arrbest"));
+	best[index] = JSON.parse(localStorage.getItem(`arrbest${index}`));
 	for (let i = 0; i < best[index].length; i++)
 	{
 		bestrec();
@@ -105,15 +101,15 @@ var colorPicker = function (i)
 var bestScore = function (index)
 {
 	best[index].push(diff);
-	localStorage.setItem("arrbest", JSON.stringify(best));
-	best = JSON.parse(localStorage.getItem("arrbest"));
+	localStorage.setItem(`arrbest${index}`, JSON.stringify(best[index]));
+	best[index] = JSON.parse(localStorage.getItem(`arrbest${index}`));
 	size = best[index].length;
 	best[index].sort();
-	localStorage.setItem("arrbest", JSON.stringify(best));
+	localStorage.setItem(`arrbest${index}`, JSON.stringify(best[index]));
 	if (size > 5)
 	{
 		best[index].pop();
-		localStorage.setItem("arrbest", JSON.stringify(best));
+		localStorage.setItem(`arrbest${index}`, JSON.stringify(best[index]));
 		disp(index);
 	}
 	else
@@ -161,7 +157,6 @@ var random = function (number)
 	return Math.floor(Math.random() * number) + 1;
 };
 //assign random numbers to array
-
 var assign = function ()
 {
 	var l = 1;
@@ -172,18 +167,15 @@ var assign = function ()
 		var randomnumber = random(20);
 		for (let j = 0; j < randomnos.length; j++)
 		{
-
 			if (randomnumber === randomnos[j])
 			{
 				flag = 1;
 			}
-
 		}
 		if (randomnos.length === 23)
 			flag = 0;
 		if (flag === 0)
 		{
-
 			if ((l + 1) % 6 === 0)
 				randomnos.push(0);
 			else
@@ -191,17 +183,11 @@ var assign = function ()
 			if (randomnos.length === 24)
 				break;
 			l++;
-
-
 		}
 		else
 		{
-
 			flag = 0;
-
 		}
-
-
 	}
 };
 // this function creates modes choices div and adds hover features and calls disp() to display best scores of the current mode
@@ -230,6 +216,7 @@ var modes = function ()
 	}
 	body = document.querySelector('body');
 	var modetext = document.getElementsByClassName('modetext');
+	//this loop handles all mouse events like hovering and clicking
 	for (let i = 0; i < 3; i++)
 	{
 		modeSelect[i].addEventListener('mouseover', function ()
@@ -287,37 +274,28 @@ var modes = function ()
 			{
 				body.style.backgroundColor = "#77e83f";
 				index = i;
-
-				if (localStorage.getItem("arrbest") === null)
+				if (localStorage.getItem(`arrbest${i}`) === null)
 					btime[0].innerHTML = "0.000 s";
 				else
 					disp(i);
-
-
 			}
 			if (i === 1)
 			{
 				body.style.backgroundColor = "#ffa02b";
 				index = i;
-
-
-				if (localStorage.getItem("arrbest") === null)
+				if (localStorage.getItem(`arrbest${i}`) === null)
 					btime[0].innerHTML = "0.000 s";
 				else
 					disp(i);
-
 			}
 			if (i === 2)
 			{
 				body.style.backgroundColor = "#ff2f2b";
 				index = i;
-
-
-				if (localStorage.getItem("arrbest") === null)
+				if (localStorage.getItem(`arrbest${i}`) === null)
 					btime[0].innerHTML = "0.000 s";
 				else
 					disp(i);
-
 			}
 			e.stopPropagation();
 			setup();
@@ -389,9 +367,7 @@ var createDiv = function ()
 		{
 			number[i].innerHTML = "";
 		}
-
 	}
-
 };
 //best time record
 var bestrec = function ()
@@ -459,6 +435,7 @@ var game = function ()
 				box.appendChild(restart);
 				restart.setAttribute("id", "res");
 				restart.innerHTML = 'Your time is: ' + sec.innerHTML + '.' + msec.innerHTML + 's' + '<br>' + ' Restart';
+
 				console.log(index);
 				bestScore(index);
 				box.addEventListener("click", playagain);
@@ -468,7 +445,7 @@ var game = function ()
 
 
 };
-
+//this functions updates the position of boxes with respect to the left and right edges of the container
 var move = function ()
 {
 
@@ -608,13 +585,22 @@ newgame.addEventListener('click', function ()
 	end = 1;
 	box.innerHTML = "";
 	clearInterval(conveyor);
-	best = JSON.parse(localStorage.getItem("arrbest"));
-	if (localStorage.getItem("arrbest") !== null)
+	if (!(btime[0].innerHTML === "0.000 s"))
 	{
-		for (let i = best[index].length - 1; i > 0; i--)
+		for (let i = 0; i < 3; i++)
 		{
-			btime[i].parentNode.removeChild(btime[i]);
-		};
+			if (localStorage.getItem(`arrbest${i}`) !== null)
+			{
+				best[i] = JSON.parse(localStorage.getItem(`arrbest${i}`));
+
+				for (let j = best[i].length - 1; j > 0; j--)
+				{
+					btime[j].parentNode.removeChild(btime[j]);
+				};
+
+
+			}
+		}
 	}
 	clearInterval(myVar);
 	box.removeEventListener('click', playagain);
