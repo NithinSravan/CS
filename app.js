@@ -251,18 +251,18 @@ var modes = function ()
 			toptext.innerHTML = "Choose Difficulty:";
 			if (i === 0)
 			{
-				modetext[i].style.color = "#fff";
+				modetext[i].style.color = "#000";
 				modeSelect[i].style.backgroundColor = "#77e83f";
 			}
 			if (i === 1)
 			{
-				modetext[i].style.color = "#fff";
+				modetext[i].style.color = "#000";
 				modeSelect[i].style.backgroundColor = "#ffa02b";
 			}
 
 			if (i === 2)
 			{
-				modetext[i].style.color = "#fff";
+				modetext[i].style.color = "#000";
 				modeSelect[i].style.backgroundColor = "#ff2f2b";
 			}
 
@@ -422,14 +422,14 @@ var game = function ()
 				end = 1;
 				clearInterval(conveyor);
 				//these while loops are used to remove classes
-				while (gridblock[0])
-				{
-					gridblock[0].classList.remove('blocks');
-				}
-				while (number[0])
-				{
-					number[0].classList.remove('numbers');
-				}
+				for (let j = gridblock.length - 1; j >= 0; j--)
+		        {
+		             gridblock[j].parentNode.removeChild(gridblock[j]);
+		        }
+				for (let j = number.length - 1; j >= 0; j--)
+		        {
+		             number[j].parentNode.removeChild(number[j]);
+		        }
 				box.style.backgroundColor = "transparent";
 				restart = document.createElement('h1');
 				box.appendChild(restart);
@@ -591,7 +591,7 @@ newgame.addEventListener('click', function ()
 		for (let j = len - 1; j > 0; j--)
 		{
 		   btime[j].parentNode.removeChild(btime[j]);
-		};
+		}
 	}
 	clearInterval(myVar);
 	box.removeEventListener('click', playagain);
