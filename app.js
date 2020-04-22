@@ -62,7 +62,6 @@ var display = function (index)
 {
 
 	best[index] = JSON.parse(localStorage.getItem(`arrbest${index}`));
-	best[index].sort();
 	size = best[index].length;
 	for (let i = 0; i < size; i++)
 	{
@@ -104,7 +103,7 @@ var bestScore = function (index)
 	localStorage.setItem(`arrbest${index}`, JSON.stringify(best[index]));
 	best[index] = JSON.parse(localStorage.getItem(`arrbest${index}`));
 	size = best[index].length;
-	best[index].sort();
+	best[index].sort((a,b)=>a-b);
 	localStorage.setItem(`arrbest${index}`, JSON.stringify(best[index]));
 	if (size > 5)
 	{
