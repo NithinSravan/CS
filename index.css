@@ -1,148 +1,21 @@
-@import url('https://fonts.googleapis.com/css?family=Sen&display=swap');
-*{
-    font-family: 'Sen';
-    margin:0;
+* {
     box-sizing: border-box;
-    user-select: none;
 }
 body{
-    background:rgb(52, 54, 51);
-}
-header{
-    margin: 0 auto;
-    color:#fff;
-}
-header ul{
-    display: flex;
-    justify-content: flex-end;
-    padding:0;
-}
-header h3{
-    display: inline;
-}
-header li{
-    display: block;
-    padding: 20px;
-    margin:10px 80px;
-    text-align: center;
-    list-style: none;
-}
-#newgame{
-    border:1px solid #fff;
-    margin-bottom: 5px;
-    padding: 10px;
-}
-#newgame:hover{
+    margin:0;
+    padding: 0;
     background-color: #fff;
-    color:black;
 }
-main{
-    color:#fff;
-}
-main p{
+canvas{
     display: block;
-    padding: 10px 50px;
-    text-align: center;
-}
-#newgame{
     margin:0 auto;
-    width: 200px;
-    height: 40px;
-}
-section{
-    text-align: center;
-}
-#container{
-    position: relative;
-    overflow: hidden;
-    margin: 0 auto;
-    height: 300px;
-    max-width: 400px;
-}
-.modetext, #container h1{
     position: absolute;
-    top: 50%;
-    left:50%;
-    transform: translate(-50%,-50%);
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background-color:  rgb(51, 50, 65);
+} 
+body.full {
+  background-color:  rgb(51, 50, 65);
 }
-#gamemodes{
-    display: flex;
-    position: absolute;
-    width: 99.99%;
-    height: 99.99%;
-    justify-content: center;
-    align-items: center;
-    top: 50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-}
-.mode{
-    position: relative;
-    width: 33.33%;
-    margin: 3px;
-    height: 10%;
-    background: #fff;
-    color:#000;
-}
-.row{
-    height: 25%;
-    width: 100%;
-    position: relative;
-}
-.blocks{
-    width: 20%;
-    height: 100%;
-    position: absolute;
-    background: #000;
-    border-radius: 6px;
-    border:1px solid #fff;
-    transform: scale(1);
-  
-}
-.numbers{
-    position: absolute;
-    top: 50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-    font-size: 20px;
-    color: #fff;
-}
-.pos{
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-.btime{
-    display:block;
-}
-footer{
-    margin-top: 10px;
-    width: 100%;
-    height: auto;
-    position: relative;
-}
-footer p{
-    position: absolute;
-    margin-top: 10px;
-    color:#fff;
-    top: 50%;
-    left:50%;
-    transform: translateX(-50%);
-  text-align: center;
-}
-#heart{
-    color:red;
-}
-/*media queries*/
-
-@media screen and (max-width:540px){
-    #container{
-        width: 90vw;
-        height: 275px;
-    }
-    header ul, #gamemodes{
-        flex-flow: column;
-    }
- 
-}
-
