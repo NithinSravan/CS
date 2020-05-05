@@ -96,13 +96,13 @@ class Ball {
         this.radius = radius;
     }
   
-    draw = function () {
+    draw  () {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
         ctx.fillStyle =this.color;
         ctx.fill();
     };
-    update = function () {
+    update  () {
         this.y -= this.vy;
         curr = this.y;
         this.vy -= 0.17;
@@ -120,7 +120,7 @@ class Particle extends Ball{
         this.vx=vx;
         this.vy=vy;
     }
-    update = function () {
+    update () {
         if (this.x + this.radius > innerWidth || this.x - this.radius < 0) {
             this.vx = -this.vx;
         }
@@ -165,7 +165,7 @@ class Obstacle {
         }
     }
    
-    draw = function () {
+    draw  () {
         var df = 0;
         parts = new Array();
   
@@ -186,7 +186,7 @@ class Obstacle {
 
         }
     };
-    update = function () {
+    update () {
 
         if (this.dir === 0) {
             this.startAngle += this.angVel;
@@ -203,7 +203,7 @@ class Obstacle {
         }
         this.draw();
     };
-    collide = function () {
+    collide  () {
         var dist = (ball.y - this.y);
         //bottom half
         if (dist <= (ball.radius + this.radius + canvas.height / 80) && dist >= (this.radius - ball.radius - canvas.height / 80)) {
