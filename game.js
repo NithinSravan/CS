@@ -24,7 +24,8 @@ let overlay = document.getElementById('overlay');
 let parts;
 let particles;
 let endsongs = ["dilwale.mp3", "eeee.mp3", "Astronomia.mp3"];
-
+clearInterval(blast);
+clearInterval(loop);
 window.onresize = function () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
