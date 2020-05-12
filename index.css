@@ -15,8 +15,8 @@ body{
     z-index: 2;
     display: block;
     background:rgba(52, 54, 51,0.8);
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
 }
 header{
     text-align: center;
