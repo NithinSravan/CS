@@ -29,6 +29,8 @@ let overlay = document.getElementById('overlay');
 window.onresize = function () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    box.style.width=window.innerWidth;
+    box.style.height=window.innerHeight;
     clearInterval(loop);
     clearInterval(timer);
     clearInterval(beginGame);
