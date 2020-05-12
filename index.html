@@ -3,43 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content= "width=device-width, user-scalable=no">
     <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="game.css">
     <title>Document</title>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" ></canvas>
     <img id="pause" src="pause.svg">
     <div id="overlay"></div>
-  <div id="box">
-    <header>
-        <h1>Bubble Burst</h1>
-        <span>Are you quick enough?</span>
-       </header>
-       <main>
-       <div id="container">
-           <div id="menu">
-               <div class="button" id="play"><h4 class="buttontext">Play</h4></div>
-               <div class="button" id="inst"><h4 class="buttontext">Instructions</h4></div>
-           </div>
-       </div>
-       <div id="instructions">
-        <span id="close">&times;</span>
-           <h1>How to play?</h1>
-           <ol>
-               <li>Click the bubbles quickly to burst them before they fill 75% of the screen</li>
-               <li>The speed of bubble generation increases with time so be quick</li>
-               <li>Pro-Tip: Burst the larger bubbles first in order to clear larger area.</li>
-               <li>The longer you endure the higher the score!</li>
-           </ol>
-       </div>
-       </main>
-       <footer>
-           <p>A game by<br>Nithin Sravan with<br><span id="heart">&hearts;</span></p>
-       </footer>
-  </div>
-    <script src="util.js"></script>
+    <div id="show"></div>
     <script src="game.js"></script>
 </body>
 </html>
