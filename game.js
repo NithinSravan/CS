@@ -1,8 +1,5 @@
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
-let ballX;
-let ballY;
-let ballRad;
 let count;
 let loop;
 let seg;
@@ -12,6 +9,15 @@ let sound = new Audio("button.wav");
 let pick=new Audio("pickup.mp3")
 let song;
 let blast;
+let x1;
+let y1;
+let x2;
+let y2;
+let normVector;
+let dotProd;
+let dashX;
+let dashY;
+let collDis;
 let bestScore = document.getElementById('show');
 let s = 0;
 let max = -1;
@@ -24,7 +30,10 @@ let restart;
 let overlay = document.getElementById('overlay');
 let parts;
 let particles;
-let spriteY;
+let ball;
+let obs;
+let click;
+let sprites;
 let endsongs = ["dilwale.mp3", "eeee.mp3", "Astronomia.mp3"];
 window.onopen = function () {
     canvas.width = window.innerWidth;
@@ -47,6 +56,18 @@ window.onload = function () {
     clearInterval(loop);
     setup();
 }
+function distance(x1, y1, x2, y2) {
+    let dx = x1 - x2;
+    let dy = y1 - y2;
+    return (Math.sqrt((dx * dx) + (dy * dy)))
+}
+function norm(x1, y1, x2, y2){
+    let n={
+        x:(x2-x1)/distance(x1, y1, x2, y2),
+        y:(y2-y1)/distance(x1, y1, x2, y2)
+    }
+    return n;
+}
 function rand(min, max) {
     return (Math.random() * (max - min + 1) + min);
 };
@@ -68,9 +89,9 @@ function explode() {
     }
     blast = setInterval(function () {
         ctx.clearRect(0, 0, innerWidth, innerHeight);
-        for (let i = 0; i < obs.length; i++) {
-            obs[i].draw();
-        }
+     //   for (let i = 0; i < obs.length; i++) {
+       //     obs[i].draw();
+        //}
         for (let i = 0; i < particles.length; i++) {
             particles[i].update();
         }
@@ -244,33 +265,90 @@ class Obstacle {
         }
     };
 }
+//polygon class inherits from obstacle and then use the angles to draw the lines of the polygon 
+class Polygon extends Obstacle{
+    constructor(x, y, radius, startAngle, endAngle, segments){
+        super(x,y,radius, startAngle, endAngle, segments);
+        this.parts;
+       
+    }
+    draw(){
+        var df = 0;
+        this.parts = new Array();
+
+        for (let i = 0; i < this.segments; i++) {
+
+            ctx.beginPath();
+            ctx.strokeStyle = color[i];
+            this.parts.push(new Part(this.startAngle + df, this.endAngle + df, color[i]));
+            ctx.lineCap="round";
+            ctx.moveTo(this.x+this.radius*Math.cos(this.startAngle+df),this.y+this.radius*Math.sin(this.startAngle+df));
+            ctx.lineTo(this.x+this.radius*Math.cos(this.endAngle+df),this.y+this.radius*Math.sin(this.endAngle+df))
+            ctx.lineWidth = canvas.height / 40;
+            ctx.stroke();
+            if (this.dir === 0) {
+                df += (2 * Math.PI / this.segments);
+            }
+            else {
+                df -= (2 * Math.PI / this.segments);
+            }
+
+        }
+    }
+    collide(){
+         
+        for(let i=0;i<this.parts.length;i++){
+            x1=this.x+this.radius*Math.cos(this.parts[i].start);
+            y1=this.y+this.radius*Math.sin(this.parts[i].start);
+            x2=this.x+this.radius*Math.cos(this.parts[i].end);
+            y2=this.y+this.radius*Math.sin(this.parts[i].end);
+            let d=distance(x1,y1,x2,y2);
+            unitVector=norm(x1,y1,x2,y2);
+            //dot product between the unitvector along the line and the vector joining centre of ball and one end
+            //this gives the projection of the vector joining centre of ball and one end on the line itself
+            dotProd=((ball.x-x1)*unitVector.x+(ball.y-y1)*unitVector.y);
+            //dashX and dashY are the coordinates of the shadow of the ball on the line or the porjection of the ball on the line
+            dashX=x1+(dotProd*(x2-x1)/d);
+            dashY=y1+(dotProd*(y2-y1)/d);
+            collDis=distance(dashX,dashY,ball.x,ball.y);
+            if(collDis<=ball.radius+canvas.height/80&&(distance(dashX,dashY,x1,y1)+distance(dashX,dashY,x2,y2)<=d)&&ball.color!==this.parts[i].color)
+            {   
+               explode()
+            }
+        }    
+    
+    };
+}
+//sprite class creates new sprite animations when constructed 
 class Sprite{
     constructor(y){
-        this.numColumns = 4;
-        this.numRows = 2;
-        this.maxFrame = this.numColumns * this.numRows - 1;
-        this.currentFrame = 0;
+        this.cols = 4;
+        this.rows= 2;
+        this.maxF = this.cols * this.rows - 1;
+        this.currF = 0;
         this.image = new Image();
         this.image.src="balls.png";
-        this.frameWidth = this.image.width / this.numColumns;
-        this.frameHeight = this.image.height / this.numRows;
+        this.frameWidth = this.image.width / this.cols;
+        this.frameHeight = this.image.height / this.rows;
         this.y=y;
         this.colorchange=0;
     }
     draw(){
-        let column = this.currentFrame % this.numColumns;
-        let row = Math.floor(this.currentFrame / this.numColumns);
-        ctx.drawImage(this.image, column * this.frameWidth, row * this.frameHeight, this.frameWidth, this.frameHeight, canvas.width/2-(canvas.height*0.025),this.y-(canvas.height*0.025) , canvas.height*0.05,  canvas.height*0.05);
+        let column = this.currF % this.cols; //cycles back to the start
+        let row = Math.floor(this.currF / this.cols); // row 1 : 0.....row 2: 1
+        ctx.drawImage(this.image, column * this.frameWidth, row * this.frameHeight, this.frameWidth, this.frameHeight, canvas.width/2-(canvas.height*0.02),this.y-(canvas.height*0.02) , canvas.height*0.045,  canvas.height*0.045);
     }
     update(i){
-        this.currentFrame++;
-        if (this.currentFrame > this.maxFrame){
-            this.currentFrame = 0;
+        this.curtFrame++;
+        //reset and start from the first sprite
+        if (this.currF > this.maxF){
+            this.currF = 0;
         }
        this.y=obs[i].y-(3*canvas.height/10);
         this.draw();
         if(ball.y>=this.y-(canvas.height*0.025)&&ball.y<=(this.y+(canvas.height*0.025)))
         {
+            //changes color only once on picking the power up
             if(this.colorchange===0)
             {
                 pick.play();
@@ -284,12 +362,9 @@ class Sprite{
         }
     }
 }
-let ball;
-let obs;
-let click;
-let sprites;
+
 function setup() {
-    ball = new Ball(canvas.width / 2, (canvas.height / 2 + canvas.height * 0.3), canvas.height * 0.02, "#F5FF25");
+    ball = new Ball(canvas.width / 2, (canvas.height / 2 + canvas.height * 0.3), canvas.height * 0.015, "#F5FF25");
     s = 0;
     max = -1;
     gameOver = 0;
@@ -376,13 +451,13 @@ function play() {
 }
 //sets ball velocity based on the number of clicks. Provides a headstart if the game is started else sets a lower velocity for further clicks
 function setBallVel() {
-    audio.play();
+   audio.play();
     if (click === 0) {
-        ball.vy = Math.min(canvas.height * 0.015, 9.5);
+        ball.vy = Math.min(canvas.height * 0.015, 9);
         click++;
     }
     else
-        ball.vy = Math.min(canvas.height * 0.01, 5.5);
+        ball.vy = Math.min(canvas.height * 0.01, 4.25);
 }
 function best() {
     if (localStorage.getItem('high') === null)
@@ -411,8 +486,16 @@ function restartButton() {
     });
 }
 function createObs(x, y, r) {
-    seg = Math.floor(rand(2, 4));
-    obs.push(new Obstacle(x, y, r, 0, (2 * Math.PI / seg), seg));
+    let decide= Math.floor(rand(0, 1));
+   if(decide===0)
+    {
+        seg = Math.floor(rand(2, 4));
+        obs.push(new Obstacle(x, y, r, 0, (2 * Math.PI / seg), seg));
+    }
+    else{
+        seg = Math.floor(rand(3, 4));
+        obs.push(new Polygon(x, y, r, 0, (2 * Math.PI / seg), seg));
+    }
     count++;
     obs[count].draw();
 }
